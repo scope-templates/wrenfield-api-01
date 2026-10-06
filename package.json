@@ -1,0 +1,16 @@
+{
+  "name": "wrenfield-api",
+  "version": "1.0.0",
+  "description": "Inventory API for the Wrenfield stockroom",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "5.2.1"
+  }
+}
