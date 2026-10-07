@@ -1,6 +1,5 @@
 const express = require("express");
-
-const port = Number(process.env.PORT) || 8080;
+const config = require("./config");
 
 const app = express();
 app.use(express.json());
@@ -9,6 +8,10 @@ const items = [];
 let nextId = 1;
 
 app.get("/health", (req, res) => {
+  const flags = config.featureFlags();
+  if (flags.healthcheck === false) {
+    return res.status(503).json({ ok: false });
+  }
   res.json({ ok: true });
 });
 
@@ -38,7 +41,7 @@ app.post("/items", (req, res) => {
   res.status(201).json(item);
 });
 
-app.listen(port, "0.0.0.0", (err) => {
+app.listen(config.port, "0.0.0.0", (err) => {
   if (err) throw err;
-  console.log(`wrenfield-api listening on port ${port}`);
+  console.log(`${config.serviceName} listening on port ${config.port}`);
 });
